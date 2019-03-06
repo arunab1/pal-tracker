@@ -47,11 +47,11 @@ public class TimeEntryController {
     public ResponseEntity update(@PathVariable long id,@RequestBody TimeEntry timeEntry) {
         ResponseEntity responseEntity = null;
 
-        TimeEntry timeEntry1 = timeEntryRepository.update(id, timeEntry);
-        if(timeEntry1 == null){
-            responseEntity = new ResponseEntity<TimeEntry>(timeEntry1, null, HttpStatus.NOT_FOUND);
+        TimeEntry updatedTimeEntry = timeEntryRepository.update(id, timeEntry);
+        if(updatedTimeEntry == null){
+            responseEntity = new ResponseEntity<TimeEntry>(updatedTimeEntry, null, HttpStatus.NOT_FOUND);
         }else {
-            responseEntity = new ResponseEntity<TimeEntry>(timeEntry1, null, HttpStatus.OK);
+            responseEntity = new ResponseEntity<TimeEntry>(updatedTimeEntry, null, HttpStatus.OK);
         }
         return responseEntity;
     }
