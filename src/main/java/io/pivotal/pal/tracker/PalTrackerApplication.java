@@ -11,13 +11,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.sql.DataSource;
+
 @SpringBootApplication
 public class PalTrackerApplication {
 
 
     @Bean
-    TimeEntryRepository timeEntryRepository() {
-        return new JdbcTimeEntryRepository(getMysqlDataSource());
+    TimeEntryRepository timeEntryRepository(DataSource dataSource) {
+        return new JdbcTimeEntryRepository(dataSource);
     }
 
     @Bean
@@ -33,12 +35,5 @@ public class PalTrackerApplication {
         SpringApplication.run(PalTrackerApplication.class, args);
     }
 
-    private MysqlDataSource getMysqlDataSource() {
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setUrl(System.getenv("SPRING_DATASOURCE_URL"));
-
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        return dataSource;
-    }
 
 }
